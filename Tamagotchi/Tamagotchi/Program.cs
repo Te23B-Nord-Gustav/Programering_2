@@ -1,0 +1,3 @@
+﻿
+// intro
+Tamagotchi tama = new();
