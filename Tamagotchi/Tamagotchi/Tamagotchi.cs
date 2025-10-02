@@ -78,8 +78,9 @@ public class Tamagotchi
 
             Tick();
 
-            if (hunger == 1 || boredom == 10)
+            if (hunger == 10 || boredom == 10)
             {
+                Console.WriteLine($"your {name} died");
                 isalive = false;
             }
 
