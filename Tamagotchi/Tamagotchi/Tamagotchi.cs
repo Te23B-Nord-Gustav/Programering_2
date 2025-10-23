@@ -5,106 +5,8 @@ public class Tamagotchi
 {
     private int hunger;
     private int boredom;
-    List<string> words = [];
-    bool isalive = true;
-    public string name;
-
-
-
-
-
-
-
-    public Tamagotchi()
-    {
-
-
-
-        Console.WriteLine("!After each finished option you will return to menu. And if your tama reaches 10 in hunger or boredom it dies ");
-        Console.WriteLine("");
-        Console.Write("Vad vill du att din tama ska heta -> ");
-        name = Console.ReadLine();
-        Console.WriteLine($"Name({name})");
-        Console.WriteLine();
-
-        // game loop
-        while (isalive == true)
-        {
-            // stat fixare för negativa nummer. åter igen kolla inte på den här skit koden den är inte ens del av upgiften är bara en bug fix isch
-            if (hunger < 0)
-            {
-                hunger++;
-            }
-            if (boredom < 0)
-            {
-                boredom++;
-            }
-
-
-
-            // menu Låt spelaren välja mellan att lära tamagotchin ett nytt ord, hälsa på den, mata den eller göra ingenting.
-            Console.WriteLine($"Hunger={hunger} Boredom={boredom}");
-            Console.WriteLine("Menu");
-            Console.WriteLine($"1-Teach {name} a new word");
-            Console.WriteLine($"2-Great {name}"); //HI metoden
-            Console.WriteLine($"3-Feed {name}");
-            Console.WriteLine($"4-do nothing");
-
-            // game
-            string svar = Console.ReadLine();
-            if (svar == "1") // lär den ord
-            {
-                Console.WriteLine($"Vad vill du lära {name}");
-                Teach(Console.ReadLine());
-                Console.WriteLine($"{name}<({words[0]})");
-            }
-            else if (svar == "2") // hälsar på den 
-            {
-                Console.WriteLine($"Hello {name}");
-                Console.Write($"{name}");
-                Hi();
-                Console.WriteLine($"''<3");
-
-            }
-            else if (svar == "3")
-            {
-                Console.WriteLine($"you fed {name}");
-                Feed();
-            }
-            else if (svar == "4")
-            {
-                Console.WriteLine("pov inget hände");
-            }
-
-            Tick();
-
-            if (hunger == 10 || boredom == 10)
-            {
-                Console.WriteLine($"your {name} died");
-                isalive = false;
-            }
-
-
-
-        }
-
-
-
-        Console.ReadLine();
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
+    List<string> words = ["idkasså",];
+    public string name = "";
 
     public void Feed()
     {
@@ -121,7 +23,9 @@ public class Tamagotchi
 
     public void Teach(string word)
     {
+        
         words.Add(word);
+        Console.WriteLine($"{name}<({words.Last()})");
         Reduceboredom();
     }
 
@@ -137,21 +41,44 @@ public class Tamagotchi
         {
             boredom++;
         }
-        if (hunger > 10 || boredom > 10)
-        {
-            isalive = false;
+
+        if (Isalive() == false)
+        {   
+            Console.WriteLine("du dog");
         }
+        
 
     }
 
     public void PrintStats()
     {
+        if (boredom < 0)
+        {
+            boredom++;
+        }
+        if (hunger < 0)
+        {
+            hunger++;
+        }
         Console.WriteLine($"Bordedom: {boredom}, Hunger: {hunger}");
     }
 
     public bool GetAlive()
     {
-        return isalive;
+        return Isalive();
+    }
+
+    public bool Isalive()
+    {
+        if (hunger > 10 || boredom > 10)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+        
     }
 
     private void Reduceboredom()
